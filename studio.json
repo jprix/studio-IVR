@@ -1,5 +1,4 @@
-[
-  {
+{
     "accountSid": "AC83152d0bc2afe3ed0ea4b0dbc54b3f00",
     "commitMessage": "Transition added from Trigger \"Incoming Message\" to autopilot_2",
     "dateCreated": "2020-09-22T14:34:37.000Z",
@@ -635,4 +634,4 @@
     "warnings": [],
     "webhookUrl": "https://webhooks.twilio.com/v1/Accounts/AC83152d0bc2afe3ed0ea4b0dbc54b3f00/Flows/FWa4b0d74b85b862dc717c282e0520484e"
   }
-]
+
