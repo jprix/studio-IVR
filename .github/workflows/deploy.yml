@@ -28,7 +28,7 @@ jobs:
             
       - name: Make Twilio API Reguest
         run: | 
-            DEFINITION=$(cat ./studio.json)
+            DEFINITION=$(cat << EOF ./studio.json EOF )
             echo $DEFINITION
             curl -X POST https://studio.twilio.com/v2/Flows/${{ secrets.PROD_FLOW_SID }} --data-urlencode "CommitMessage=Prod release v2" --data-urlencode "Definition=$DEFINITION"  --data-urlencode "Status=published"  -u ${{ secrets.PROD_ACCOUNT_SID }}:${{ secrets.PROD_AUTH_KEY }}
                
