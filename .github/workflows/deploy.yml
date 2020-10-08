@@ -29,7 +29,7 @@ jobs:
         uses: notiz-dev/github-action-json-property@release
         with: 
           path: 'studio.json'
-          prop_path: 'version'
+          prop_path: 'definition'
       - run: echo ${{steps.definition.definition}} 
 
       # Runs a HTTP request to Twilio Flows V2 API ss
