@@ -25,8 +25,8 @@ jobs:
         
       #Json Parse
       - name: Parse Json Request
+        id: definition
         run: |
-          id: definition
           uses: notiz-dev/github-action-json-property@release
            with: 
             path: 'studio.json'
