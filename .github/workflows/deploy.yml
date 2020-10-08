@@ -22,15 +22,6 @@ jobs:
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v2
-        
-      #Json Parse
-      - name: Parse Json Request
-        id: definition
-        uses: notiz-dev/github-action-json-property@release
-        with: 
-          path: './studio.json'
-          prop_path: 'definition'
-      - run: echo ${{steps.definition.prop}} 
 
       # Runs a HTTP request to Twilio Flows V2 API ss
             
