@@ -30,7 +30,7 @@ jobs:
         with: 
           path: './studio.json'
           prop_path: 'definition'
-      - run: echo ${{steps.definition.definition}} 
+      - run: echo ${{steps.definition}} 
 
       # Runs a HTTP request to Twilio Flows V2 API ss
             
