@@ -605,6 +605,10 @@
     },
     "errors": [
       {
+        "message": "may not be empty",
+        "property_path": "#/states/19/properties/assistant_sid"
+      },
+      {
         "message": "is missing but it is required",
         "property_path": "#/states/18/properties/autopilot_assistant_sid"
       },
@@ -615,10 +619,6 @@
       {
         "message": "may not be empty",
         "property_path": "#/states/18/properties/assistant_sid"
-      },
-      {
-        "message": "may not be empty",
-        "property_path": "#/states/19/properties/assistant_sid"
       }
     ],
     "friendlyName": "Refill IVR",
