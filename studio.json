@@ -1,56 +1,54 @@
 {
-  "definition": {
-    "states": [
-      {
-        "transitions": [
-          {
-            "event": "incomingMessage"
-          },
-          {
-            "event": "incomingCall"
-          },
-          {
-            "event": "incomingRequest",
-            "next": "send_message_1"
-          }
-        ],
-        "type": "trigger",
-        "name": "Trigger",
-        "properties": {
-          "offset": {
-            "y": -180,
-            "x": 40
-          }
+  "description": "Appointment for Giuseppi",
+  "flags": {
+    "allow_concurrent_calls": true
+  },
+  "initial_state": "Trigger",
+  "states": [
+    {
+      "transitions": [
+        {
+          "event": "incomingMessage"
+        },
+        {
+          "event": "incomingCall"
+        },
+        {
+          "event": "incomingRequest",
+          "next": "send_message_1"
         }
-      },
-      {
-        "transitions": [
-          {
-            "event": "sent"
-          },
-          {
-            "event": "failed"
-          }
-        ],
-        "type": "send-message",
-        "name": "send_message_1",
-        "properties": {
-          "body": "Worked",
-          "from": "{{flow.channel.address}}",
-          "service": "{{trigger.message.InstanceSid}}",
-          "to": "{{contact.channel.address}}",
-          "offset": {
-            "y": 580,
-            "x": 50
-          },
-          "channel": "{{trigger.message.ChannelSid}}"
+      ],
+      "type": "trigger",
+      "name": "Trigger",
+      "properties": {
+        "offset": {
+          "y": -180,
+          "x": 40
         }
       }
-    ],
-    "initial_state": "Trigger",
-    "flags": {
-      "allow_concurrent_calls": true
     },
-    "description": "Appointment for Giuseppi"
-  }
+    {
+      "transitions": [
+        {
+          "event": "sent"
+        },
+        {
+          "event": "failed"
+        }
+      ],
+      "type": "send-message",
+      "name": "send_message_1",
+      "properties": {
+        "body": "Worked",
+        "from": "{{flow.channel.address}}",
+        "service": "{{trigger.message.InstanceSid}}",
+        "to": "{{contact.channel.address}}",
+        "offset": {
+          "y": 580,
+          "x": 50
+        },
+        "channel": "{{trigger.message.ChannelSid}}"
+      }
+    }
+  ]
 }
