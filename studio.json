@@ -1,599 +1,54 @@
 [
   {
-    "accountSid": "AC83152d0bc2afe3ed0ea4b0dbc54b3f00",
-    "commitMessage": "Transition added from Trigger \"Incoming Message\" to autopilot_2",
-    "dateCreated": "2020-09-22T14:34:37.000Z",
-    "dateUpdated": "2020-09-29T17:29:59.000Z",
+    "accountSid": "ACcd2c87cc617943246ccacbad3121bfb5",
+    "commitMessage": "Published Flow",
+    "dateCreated": "2020-08-21T18:19:49.000Z",
+    "dateUpdated": "2020-10-07T18:34:08.000Z",
     "definition": {
       "states": [
         {
           "transitions": [
             {
-              "event": "incomingMessage",
-              "next": "autopilot_2"
+              "event": "incomingMessage"
             },
             {
-              "event": "incomingCall",
-              "next": "GetPatientInfo"
+              "event": "incomingCall"
             },
             {
               "event": "incomingRequest",
-              "next": "split_1"
+              "next": "send_message_1"
             }
           ],
           "type": "trigger",
           "name": "Trigger",
           "properties": {
             "offset": {
-              "y": -590,
-              "x": -850
+              "y": -180,
+              "x": 40
             }
           }
         },
         {
           "transitions": [
             {
-              "event": "keypress",
-              "next": "split_key_press"
-            },
-            {
-              "event": "speech"
-            },
-            {
-              "event": "timeout"
-            }
-          ],
-          "type": "gather-input-on-call",
-          "name": "gather_input",
-          "properties": {
-            "stop_gather": false,
-            "language": "en",
-            "gather_language": "en",
-            "say": "Hi {{widgets.GetPatientInfo.parsed.firstName}}, Thank you for calling The Brooklyn Hospital.  Please press 1 if you you're calling about an appointment.  Press 2 to speak with a Receptionist.",
-            "loop": 1,
-            "timeout": 5,
-            "offset": {
-              "y": 450,
-              "x": -630
-            },
-            "voice": "alice",
-            "speech_timeout": "auto",
-            "finish_on_key": "",
-            "profanity_filter": "true"
-          }
-        },
-        {
-          "transitions": [
-            {
-              "event": "noMatch"
-            },
-            {
-              "conditions": [
-                {
-                  "type": "equal_to",
-                  "friendly_name": "1",
-                  "arguments": [
-                    "{{widgets.gather_input.Digits}}"
-                  ],
-                  "value": "1"
-                }
-              ],
-              "event": "match",
-              "next": "gather_appointment_reason"
-            },
-            {
-              "conditions": [
-                {
-                  "type": "equal_to",
-                  "friendly_name": "2",
-                  "arguments": [
-                    "{{widgets.gather_input.Digits}}"
-                  ],
-                  "value": "2"
-                }
-              ],
-              "event": "match",
-              "next": "Copy_of_xferToPBX"
-            }
-          ],
-          "type": "split-based-on",
-          "name": "split_key_press",
-          "properties": {
-            "input": "{{widgets.gather_input.Digits}}",
-            "offset": {
-              "y": 710,
-              "x": -790
-            }
-          }
-        },
-        {
-          "transitions": [
-            {
-              "event": "success",
-              "next": "gather_input"
-            },
-            {
-              "event": "fail"
-            }
-          ],
-          "type": "run-function",
-          "name": "GetPatientInfo",
-          "properties": {
-            "parameters": [
-              {
-                "key": "patientID",
-                "value": "{{trigger.request.parameters.patienId}}"
-              }
-            ],
-            "url": "https://patients-2497.twil.io/patient",
-            "environment_sid": "ZEc6cb60dab76dcf7411f2e339804c841a",
-            "offset": {
-              "y": 220,
-              "x": -640
-            },
-            "function_sid": "ZH972611fb002c7832f893f3a87c4e9a96",
-            "service_sid": "ZSa6ea609cfa0361ff52cfda150a86843f"
-          }
-        },
-        {
-          "transitions": [
-            {
-              "event": "keypress",
-              "next": "appointment_parser"
-            },
-            {
-              "event": "speech"
-            },
-            {
-              "event": "timeout"
-            }
-          ],
-          "type": "gather-input-on-call",
-          "name": "gather_appointment_reason",
-          "properties": {
-            "stop_gather": true,
-            "language": "en-US",
-            "gather_language": "en",
-            "number_of_digits": 1,
-            "say": "To Confirm your appoinment press 1, to cancel, press 2, to reschedule, press 3",
-            "loop": 1,
-            "timeout": 5,
-            "offset": {
-              "y": 1060,
-              "x": -920
-            },
-            "speech_timeout": "auto",
-            "finish_on_key": "#",
-            "profanity_filter": "true"
-          }
-        },
-        {
-          "transitions": [
-            {
-              "event": "noMatch"
-            },
-            {
-              "conditions": [
-                {
-                  "type": "equal_to",
-                  "friendly_name": "1",
-                  "arguments": [
-                    "{{widgets.gather_appointment_reason.Digits}}"
-                  ],
-                  "value": "1"
-                }
-              ],
-              "event": "match",
-              "next": "Confirm_Appointment"
-            },
-            {
-              "conditions": [
-                {
-                  "type": "equal_to",
-                  "friendly_name": "2",
-                  "arguments": [
-                    "{{widgets.gather_appointment_reason.Digits}}"
-                  ],
-                  "value": "2"
-                }
-              ],
-              "event": "match",
-              "next": "Cancel_Appointment"
-            },
-            {
-              "conditions": [
-                {
-                  "type": "equal_to",
-                  "friendly_name": "3",
-                  "arguments": [
-                    "{{widgets.gather_appointment_reason.Digits}}"
-                  ],
-                  "value": "3"
-                }
-              ],
-              "event": "match",
-              "next": "Reschedule_Appointment"
-            }
-          ],
-          "type": "split-based-on",
-          "name": "appointment_parser",
-          "properties": {
-            "input": "{{widgets.gather_appointment_reason.Digits}}",
-            "offset": {
-              "y": 1350,
-              "x": -740
-            }
-          }
-        },
-        {
-          "transitions": [
-            {
-              "event": "success",
-              "next": "Confirm_Confirmation"
-            },
-            {
-              "event": "fail"
-            }
-          ],
-          "type": "run-function",
-          "name": "Confirm_Appointment",
-          "properties": {
-            "url": "https://patients-2497.twil.io/patient/confirm",
-            "function_sid": "ZH6d06ec0c4d7b5d1333b6988c189a05bc",
-            "service_sid": "ZSa6ea609cfa0361ff52cfda150a86843f",
-            "environment_sid": "ZEc6cb60dab76dcf7411f2e339804c841a",
-            "offset": {
-              "y": 1740,
-              "x": -1060
-            }
-          }
-        },
-        {
-          "transitions": [
-            {
-              "event": "audioComplete"
-            }
-          ],
-          "type": "say-play",
-          "name": "Confirm_Confirmation",
-          "properties": {
-            "say": "{{widgets.Confirm_Appointment.parsed.message}}",
-            "loop": 1,
-            "offset": {
-              "y": 1980,
-              "x": -1430
-            }
-          }
-        },
-        {
-          "transitions": [
-            {
-              "event": "success",
-              "next": "Cancel_Confirmation"
-            },
-            {
-              "event": "fail"
-            }
-          ],
-          "type": "run-function",
-          "name": "Cancel_Appointment",
-          "properties": {
-            "url": "https://patients-2497.twil.io/patient/cancel",
-            "function_sid": "ZHb990303f65405d845e6d0f25544d9b57",
-            "service_sid": "ZSa6ea609cfa0361ff52cfda150a86843f",
-            "environment_sid": "ZEc6cb60dab76dcf7411f2e339804c841a",
-            "offset": {
-              "y": 1740,
-              "x": -680
-            }
-          }
-        },
-        {
-          "transitions": [
-            {
-              "event": "audioComplete",
-              "next": "xferToPBX"
-            }
-          ],
-          "type": "say-play",
-          "name": "Cancel_Confirmation",
-          "properties": {
-            "say": "{{widgets.Cancel_Appointment.parsed.message}}",
-            "loop": 1,
-            "offset": {
-              "y": 2020,
-              "x": -670
-            }
-          }
-        },
-        {
-          "transitions": [
-            {
-              "event": "callCompleted"
-            },
-            {
-              "event": "hangup"
-            }
-          ],
-          "type": "connect-call-to",
-          "name": "xferToPBX",
-          "properties": {
-            "sip_endpoint": "sip:Jay@jayparisi.sip.us1.twilio.com",
-            "noun": "sip",
-            "timeout": 30,
-            "caller_id": "{{contact.channel.address}}",
-            "offset": {
-              "y": 2370,
-              "x": -460
-            }
-          }
-        },
-        {
-          "transitions": [
-            {
-              "event": "success",
-              "next": "Reschedule_Confirmation"
-            },
-            {
-              "event": "fail"
-            }
-          ],
-          "type": "run-function",
-          "name": "Reschedule_Appointment",
-          "properties": {
-            "url": "https://patients-2497.twil.io/patient/reschedule",
-            "function_sid": "ZH6ac83a7d2ea1f66c2ea1709c0a748df2",
-            "service_sid": "ZSa6ea609cfa0361ff52cfda150a86843f",
-            "environment_sid": "ZEc6cb60dab76dcf7411f2e339804c841a",
-            "offset": {
-              "y": 1740,
-              "x": -300
-            }
-          }
-        },
-        {
-          "transitions": [
-            {
-              "event": "audioComplete",
-              "next": "xferToPBX"
-            }
-          ],
-          "type": "say-play",
-          "name": "Reschedule_Confirmation",
-          "properties": {
-            "say": "{{widgets.Reschedule_Appointment.parsed.message}}",
-            "loop": 1,
-            "offset": {
-              "y": 2010,
-              "x": -330
-            }
-          }
-        },
-        {
-          "transitions": [
-            {
-              "event": "callCompleted"
-            },
-            {
-              "event": "hangup"
-            }
-          ],
-          "type": "connect-call-to",
-          "name": "Copy_of_xferToPBX",
-          "properties": {
-            "sip_endpoint": "sip:Jay@jayparisi.sip.us1.twilio.com",
-            "noun": "sip",
-            "timeout": 30,
-            "caller_id": "{{contact.channel.address}}",
-            "offset": {
-              "y": 1060,
-              "x": -580
-            }
-          }
-        },
-        {
-          "transitions": [
-            {
-              "event": "answered",
-              "next": "restTrigger_gather_input"
-            },
-            {
-              "event": "busy"
-            },
-            {
-              "event": "noAnswer"
+              "event": "sent"
             },
             {
               "event": "failed"
             }
           ],
-          "type": "make-outgoing-call-v2",
-          "name": "call_user_1",
+          "type": "send-message",
+          "name": "send_message_1",
           "properties": {
-            "trim": "true",
-            "machine_detection_silence_timeout": "5000",
+            "body": "Worked",
             "from": "{{flow.channel.address}}",
-            "recording_status_callback": "",
-            "record": false,
-            "machine_detection_speech_threshold": "2400",
+            "service": "{{trigger.message.InstanceSid}}",
             "to": "{{contact.channel.address}}",
-            "detect_answering_machine": false,
-            "sip_auth_username": "",
-            "machine_detection": "Enable",
-            "send_digits": "",
-            "machine_detection_timeout": "30",
-            "timeout": 60,
             "offset": {
-              "y": 210,
-              "x": -240
+              "y": 580,
+              "x": 50
             },
-            "machine_detection_speech_end_threshold": "1200",
-            "sip_auth_password": "",
-            "recording_channels": "mono"
-          }
-        },
-        {
-          "transitions": [
-            {
-              "event": "keypress",
-              "next": "restTrigger_split_key_press"
-            },
-            {
-              "event": "speech"
-            },
-            {
-              "event": "timeout"
-            }
-          ],
-          "type": "gather-input-on-call",
-          "name": "restTrigger_gather_input",
-          "properties": {
-            "stop_gather": false,
-            "gather_language": "en-US",
-            "say": "Hi {{trigger.request.parameters.firstName}} , your next Appointment is {{trigger.request.parameters.nextAppointment}}.  To Confirm your appoinment press 1, to cancel, press 2, to reschedule, press 3",
-            "loop": 1,
-            "timeout": 5,
-            "offset": {
-              "y": 450,
-              "x": -240
-            },
-            "speech_timeout": "auto",
-            "finish_on_key": "",
-            "profanity_filter": "true"
-          }
-        },
-        {
-          "transitions": [
-            {
-              "event": "noMatch"
-            },
-            {
-              "conditions": [
-                {
-                  "type": "equal_to",
-                  "friendly_name": "1",
-                  "arguments": [
-                    "{{widgets.restTrigger_gather_input.Digits}}"
-                  ],
-                  "value": "1"
-                }
-              ],
-              "event": "match",
-              "next": "gather_appointment_reason"
-            },
-            {
-              "conditions": [
-                {
-                  "type": "equal_to",
-                  "friendly_name": "2",
-                  "arguments": [
-                    "{{widgets.restTrigger_gather_input.Digits}}"
-                  ],
-                  "value": "2"
-                }
-              ],
-              "event": "match",
-              "next": "Copy_of_xferToPBX"
-            }
-          ],
-          "type": "split-based-on",
-          "name": "restTrigger_split_key_press",
-          "properties": {
-            "input": "{{widgets.restTrigger_gather_input.Digits}}",
-            "offset": {
-              "y": 710,
-              "x": -300
-            }
-          }
-        },
-        {
-          "transitions": [
-            {
-              "event": "noMatch"
-            },
-            {
-              "conditions": [
-                {
-                  "type": "equal_to",
-                  "friendly_name": "If value equal_to english",
-                  "arguments": [
-                    "{{trigger.request.parameters.language}}"
-                  ],
-                  "value": "english"
-                }
-              ],
-              "event": "match",
-              "next": "GetPatientInfo"
-            },
-            {
-              "conditions": [
-                {
-                  "type": "equal_to",
-                  "friendly_name": "If value equal_to spanish",
-                  "arguments": [
-                    "{{trigger.request.parameters.language}}"
-                  ],
-                  "value": "spanish"
-                }
-              ],
-              "event": "match",
-              "next": "call_user_1"
-            }
-          ],
-          "type": "split-based-on",
-          "name": "split_1",
-          "properties": {
-            "input": "{{trigger.request.parameters.language}}",
-            "offset": {
-              "y": -350,
-              "x": -400
-            }
-          }
-        },
-        {
-          "transitions": [
-            {
-              "event": "sessionEnded"
-            },
-            {
-              "event": "failure"
-            }
-          ],
-          "type": "send-to-auto-pilot",
-          "name": "autopilot_1",
-          "properties": {
-            "body": "{{trigger.message.Body}}",
-            "from": "{{flow.channel.address}}",
-            "chat_service": "{{trigger.message.InstanceSid}}",
-            "timeout": 14400,
-            "offset": {
-              "y": 1208,
-              "x": 22
-            },
-            "chat_channel": "{{trigger.message.ChannelSid}}"
-          }
-        },
-        {
-          "transitions": [
-            {
-              "event": "sessionEnded"
-            },
-            {
-              "event": "failure"
-            }
-          ],
-          "type": "send-to-auto-pilot",
-          "name": "autopilot_2",
-          "properties": {
-            "body": "{{trigger.message.Body}}",
-            "from": "{{flow.channel.address}}",
-            "chat_service": "{{trigger.message.InstanceSid}}",
-            "timeout": 14400,
-            "offset": {
-              "y": -343,
-              "x": -1301
-            },
-            "chat_channel": "{{trigger.message.ChannelSid}}"
+            "channel": "{{trigger.message.ChannelSid}}"
           }
         }
       ],
@@ -601,38 +56,21 @@
       "flags": {
         "allow_concurrent_calls": true
       },
-      "description": "IVR"
+      "description": "Appointment for Giuseppi"
     },
-    "errors": [
-      {
-        "message": "may not be empty",
-        "property_path": "#/states/19/properties/assistant_sid"
-      },
-      {
-        "message": "is missing but it is required",
-        "property_path": "#/states/18/properties/autopilot_assistant_sid"
-      },
-      {
-        "message": "is missing but it is required",
-        "property_path": "#/states/19/properties/autopilot_assistant_sid"
-      },
-      {
-        "message": "may not be empty",
-        "property_path": "#/states/18/properties/assistant_sid"
-      }
-    ],
-    "friendlyName": "Refill IVR",
+    "errors": [],
+    "friendlyName": "Anthony",
     "links": {
-      "test_users": "https://studio.twilio.com/v2/Flows/FWa4b0d74b85b862dc717c282e0520484e/TestUsers",
-      "revisions": "https://studio.twilio.com/v2/Flows/FWa4b0d74b85b862dc717c282e0520484e/Revisions",
-      "executions": "https://studio.twilio.com/v2/Flows/FWa4b0d74b85b862dc717c282e0520484e/Executions"
+      "test_users": "https://studio.twilio.com/v2/Flows/FWe40935e8ecda078fc23b7cff4e93d2e4/TestUsers",
+      "revisions": "https://studio.twilio.com/v2/Flows/FWe40935e8ecda078fc23b7cff4e93d2e4/Revisions",
+      "executions": "https://studio.twilio.com/v2/Flows/FWe40935e8ecda078fc23b7cff4e93d2e4/Executions"
     },
-    "revision": 336,
-    "sid": "FWa4b0d74b85b862dc717c282e0520484e",
-    "status": "draft",
-    "url": "https://studio.twilio.com/v2/Flows/FWa4b0d74b85b862dc717c282e0520484e",
-    "valid": false,
+    "revision": 15,
+    "sid": "FWe40935e8ecda078fc23b7cff4e93d2e4",
+    "status": "published",
+    "url": "https://studio.twilio.com/v2/Flows/FWe40935e8ecda078fc23b7cff4e93d2e4",
+    "valid": true,
     "warnings": [],
-    "webhookUrl": "https://webhooks.twilio.com/v1/Accounts/AC83152d0bc2afe3ed0ea4b0dbc54b3f00/Flows/FWa4b0d74b85b862dc717c282e0520484e"
+    "webhookUrl": "https://webhooks.twilio.com/v1/Accounts/ACcd2c87cc617943246ccacbad3121bfb5/Flows/FWe40935e8ecda078fc23b7cff4e93d2e4"
   }
 ]
