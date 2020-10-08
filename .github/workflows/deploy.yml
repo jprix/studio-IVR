@@ -28,7 +28,7 @@ jobs:
         id: definition
         uses: notiz-dev/github-action-json-property@release
         with: 
-          path: 'studio.json'
+          path: './studio.json'
           prop_path: 'definition'
       - run: echo ${{steps.definition.definition}} 
 
