@@ -23,13 +23,22 @@ jobs:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v2
         
+      #Json Parse
+      - name: Parse Json Request
+        run: |
+          id: definition
+          uses: notiz-dev/github-action-json-property@release
+           with: 
+            path: 'studio.json'
+            prop_path: 'definition'
+            run: echo ${{steps.definition.definition}}
 
       # Runs a HTTP request to Twilio Flows V2 API ss
             
       - name: Make Twilio API Reguest
         run: | 
             DEFINITION=$(cat ./studio.json)
-            echo $DEFINITION.definition
+            echo $DEFINITION
             curl -X POST https://studio.twilio.com/v2/Flows/${{ secrets.PROD_FLOW_SID }} --data-urlencode "CommitMessage=Prod release v2" --data-urlencode "Definition=$DEFINITION"  --data-urlencode "Status=published"  -u ${{ secrets.PROD_ACCOUNT_SID }}:${{ secrets.PROD_AUTH_KEY }}
                
        
