@@ -26,12 +26,11 @@ jobs:
       #Json Parse
       - name: Parse Json Request
         id: definition
-        run: |
-          uses: notiz-dev/github-action-json-property@release
-           with: 
-            path: 'studio.json'
-            prop_path: 'definition'
-            run: echo ${{steps.definition.definition}}
+        uses: notiz-dev/github-action-json-property@release
+        with: 
+          path: 'studio.json'
+          prop_path: 'version'
+      - run: echo ${{steps.definition.definition}} 
 
       # Runs a HTTP request to Twilio Flows V2 API ss
             
