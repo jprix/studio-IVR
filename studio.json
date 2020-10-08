@@ -1,76 +1,56 @@
-[
-  {
-    "accountSid": "ACcd2c87cc617943246ccacbad3121bfb5",
-    "commitMessage": "Published Flow",
-    "dateCreated": "2020-08-21T18:19:49.000Z",
-    "dateUpdated": "2020-10-07T18:34:08.000Z",
-    "definition": {
-      "states": [
-        {
-          "transitions": [
-            {
-              "event": "incomingMessage"
-            },
-            {
-              "event": "incomingCall"
-            },
-            {
-              "event": "incomingRequest",
-              "next": "send_message_1"
-            }
-          ],
-          "type": "trigger",
-          "name": "Trigger",
-          "properties": {
-            "offset": {
-              "y": -180,
-              "x": 40
-            }
+{
+  "definition": {
+    "states": [
+      {
+        "transitions": [
+          {
+            "event": "incomingMessage"
+          },
+          {
+            "event": "incomingCall"
+          },
+          {
+            "event": "incomingRequest",
+            "next": "send_message_1"
           }
-        },
-        {
-          "transitions": [
-            {
-              "event": "sent"
-            },
-            {
-              "event": "failed"
-            }
-          ],
-          "type": "send-message",
-          "name": "send_message_1",
-          "properties": {
-            "body": "Worked",
-            "from": "{{flow.channel.address}}",
-            "service": "{{trigger.message.InstanceSid}}",
-            "to": "{{contact.channel.address}}",
-            "offset": {
-              "y": 580,
-              "x": 50
-            },
-            "channel": "{{trigger.message.ChannelSid}}"
+        ],
+        "type": "trigger",
+        "name": "Trigger",
+        "properties": {
+          "offset": {
+            "y": -180,
+            "x": 40
           }
         }
-      ],
-      "initial_state": "Trigger",
-      "flags": {
-        "allow_concurrent_calls": true
       },
-      "description": "Appointment for Giuseppi"
+      {
+        "transitions": [
+          {
+            "event": "sent"
+          },
+          {
+            "event": "failed"
+          }
+        ],
+        "type": "send-message",
+        "name": "send_message_1",
+        "properties": {
+          "body": "Worked",
+          "from": "{{flow.channel.address}}",
+          "service": "{{trigger.message.InstanceSid}}",
+          "to": "{{contact.channel.address}}",
+          "offset": {
+            "y": 580,
+            "x": 50
+          },
+          "channel": "{{trigger.message.ChannelSid}}"
+        }
+      }
+    ],
+    "initial_state": "Trigger",
+    "flags": {
+      "allow_concurrent_calls": true
     },
-    "errors": [],
-    "friendlyName": "Anthony",
-    "links": {
-      "test_users": "https://studio.twilio.com/v2/Flows/FWe40935e8ecda078fc23b7cff4e93d2e4/TestUsers",
-      "revisions": "https://studio.twilio.com/v2/Flows/FWe40935e8ecda078fc23b7cff4e93d2e4/Revisions",
-      "executions": "https://studio.twilio.com/v2/Flows/FWe40935e8ecda078fc23b7cff4e93d2e4/Executions"
-    },
-    "revision": 15,
-    "sid": "FWe40935e8ecda078fc23b7cff4e93d2e4",
-    "status": "published",
-    "url": "https://studio.twilio.com/v2/Flows/FWe40935e8ecda078fc23b7cff4e93d2e4",
-    "valid": true,
-    "warnings": [],
-    "webhookUrl": "https://webhooks.twilio.com/v1/Accounts/ACcd2c87cc617943246ccacbad3121bfb5/Flows/FWe40935e8ecda078fc23b7cff4e93d2e4"
+    "description": "Appointment for Giuseppi"
   }
-]
+}
