@@ -1,9 +1,5 @@
-[
+
   {
-    "accountSid": "ACcd2c87cc617943246ccacbad3121bfb5",
-    "commitMessage": "Published Flow",
-    "dateCreated": "2020-08-21T18:19:49.000Z",
-    "dateUpdated": "2020-10-07T18:34:08.000Z",
     "definition": {
       "states": [
         {
@@ -57,20 +53,5 @@
         "allow_concurrent_calls": true
       },
       "description": "Appointment for Giuseppi"
-    },
-    "errors": [],
-    "friendlyName": "Anthony",
-    "links": {
-      "test_users": "https://studio.twilio.com/v2/Flows/FWe40935e8ecda078fc23b7cff4e93d2e4/TestUsers",
-      "revisions": "https://studio.twilio.com/v2/Flows/FWe40935e8ecda078fc23b7cff4e93d2e4/Revisions",
-      "executions": "https://studio.twilio.com/v2/Flows/FWe40935e8ecda078fc23b7cff4e93d2e4/Executions"
-    },
-    "revision": 15,
-    "sid": "FWe40935e8ecda078fc23b7cff4e93d2e4",
-    "status": "published",
-    "url": "https://studio.twilio.com/v2/Flows/FWe40935e8ecda078fc23b7cff4e93d2e4",
-    "valid": true,
-    "warnings": [],
-    "webhookUrl": "https://webhooks.twilio.com/v1/Accounts/ACcd2c87cc617943246ccacbad3121bfb5/Flows/FWe40935e8ecda078fc23b7cff4e93d2e4"
+    }
   }
-]
