@@ -30,6 +30,6 @@ jobs:
         run: | 
             DEFINITION=$(cat ./studio.json)
             echo $DEFINITION
-            StatusCode=$(awk 'BEGIN {"curl -sl -i -X POST https://studio.twilio.com/v2/Flows/${{ secrets.PROD_FLOW_SID }} --data-urlencode "CommitMessage=Prod release v2" --data-urlencode "Definition=$DEFINITION"  --data-urlencode "Status=published"  -u ${{ secrets.PROD_ACCOUNT_SID }}:${{ secrets.PROD_AUTH_KEY }} | getline; print $2}')
+            StatusCode=$(awk 'BEGIN {"curl -sI -i -X POST https://studio.twilio.com/v2/Flows/${{ secrets.PROD_FLOW_SID }} --data-urlencode "CommitMessage=Prod release v2" --data-urlencode "Definition=$DEFINITION"  --data-urlencode "Status=published"  -u ${{ secrets.PROD_ACCOUNT_SID }}:${{ secrets.PROD_AUTH_KEY }} | getline; print $2}')
                
       
