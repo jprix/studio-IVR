@@ -30,7 +30,7 @@ jobs:
         run: | 
             DEFINITION=$(cat ./studio.json)
             echo $DEFINITION
-            StatusCode=$(awk 'BEGIN {"curl -sI -X POST https://studio.twilio.com/v2/Flows/${{ secrets.PROD_FLOW_SID }} --data-urlencode "CommitMessage=Prod release v2" --data-urlencode "Definition=$DEFINITION"  --data-urlencode "Status=published"  -u ${{ secrets.PROD_ACCOUNT_SID }}:${{ secrets.PROD_AUTH_KEY }}" | getline; print "Status Code: " $2}')
-            #StatusCode=$(awk 'BEGIN {"curl -sI -X POST https://studio.twilio.com/v2/Flows/FW2e5c1733339c291a3d9119110c58e87f" --data-urlencode "CommitMessage=Prod release v2" --data-urlencode "Definition=Some=json" --data-urlencode "Status=published" -u "ACcd2c87cc617943246ccacbad3121bfb5:7171fa84efab12d631ccc9c4a027f443" | getline; print "Status Code: " $2}')
+            #StatusCode=$(awk 'BEGIN {"curl -sI -X POST https://studio.twilio.com/v2/Flows/${{ secrets.PROD_FLOW_SID }} --data-urlencode "CommitMessage=Prod release v2" --data-urlencode "Definition=$DEFINITION"  --data-urlencode "Status=published"  -u ${{ secrets.PROD_ACCOUNT_SID }}:${{ secrets.PROD_AUTH_KEY }}" | getline; print "Status Code: " $2}')
+            awk ‘BEGIN {“curl -sI http://example.com” | getline; print “Status Code: ” $2}'  
             echo $StatusCode   
       
