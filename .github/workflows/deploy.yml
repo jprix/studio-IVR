@@ -1,4 +1,4 @@
-# This is a basic workflow to help you get started with Actions
+o# This is a basic workflow to help you get started with Actions
 
 name: CI Deployment to Studioz
 
@@ -32,6 +32,4 @@ jobs:
             echo $DEFINITION
             curl -i -X POST https://studio.twilio.com/v2/Flows/${{ secrets.PROD_FLOW_SID }} --data-urlencode "CommitMessage=Prod release v2" --data-urlencode "Definition=$DEFINITION"  --data-urlencode "Status=published"  -u ${{ secrets.PROD_ACCOUNT_SID }}:${{ secrets.PROD_AUTH_KEY }}
                
-      - name: IF API is 201
-        if: steps.updateFlow == true
-        run:          
+      
