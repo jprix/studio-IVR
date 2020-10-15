@@ -26,7 +26,7 @@ jobs:
       # Runs a HTTP request to Twilio Flows V2 API ss
             
       - name: Make Twilio API Reguest
-        id: updateFlow
+        id: updateFlowz
         run: | 
             DEFINITION=$(cat ./studio.json)
             echo $DEFINITION
