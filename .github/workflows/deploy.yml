@@ -26,9 +26,12 @@ jobs:
       # Runs a HTTP request to Twilio Flows V2 API ss
             
       - name: Make Twilio API Reguest
+        id: updateFlow
         run: | 
             DEFINITION=$(cat ./studio.json)
             echo $DEFINITION
-            curl -X POST https://studio.twilio.com/v2/Flows/${{ secrets.PROD_FLOW_SID }} --data-urlencode "CommitMessage=Prod release v2" --data-urlencode "Definition=$DEFINITION"  --data-urlencode "Status=published"  -u ${{ secrets.PROD_ACCOUNT_SID }}:${{ secrets.PROD_AUTH_KEY }}
+            curl -i -X POST https://studio.twilio.com/v2/Flows/${{ secrets.PROD_FLOW_SID }} --data-urlencode "CommitMessage=Prod release v2" --data-urlencode "Definition=$DEFINITION"  --data-urlencode "Status=published"  -u ${{ secrets.PROD_ACCOUNT_SID }}:${{ secrets.PROD_AUTH_KEY }}
                
-       
+      - name: IF API is 201
+        if: steps.updateFlow == true
+        run:          
