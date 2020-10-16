@@ -38,8 +38,8 @@ jobs:
         if: success()
         run: |
           echo "success"
-          `curl -s -o /dev/null -w "%{http_code}"  -X POST --data-urlencode "To=+16318721738" --data-urlencode "From=+16312502963"  -u ${{ secrets.PROD_ACCOUNT_SID }}:${{ secrets.PROD_AUTH_KEY }} https://studio.twilio.com/v2/Flows/${{ secrets.PROD_FLOW_SID }}/Executions` 
- 
+          EXECUTION_STATUS=`curl -s -o -i /dev/null -w "%{http_code}"  -X POST --data-urlencode "To=+16318721738" --data-urlencode "From=+16312502963"  -u ${{ secrets.PROD_ACCOUNT_SID }}:${{ secrets.PROD_AUTH_KEY }} https://studio.twilio.com/v2/Flows/${{ secrets.PROD_FLOW_SID }}/Executions` 
+          echo EXECUTION_STATUS
 
           
       
