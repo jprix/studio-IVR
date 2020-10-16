@@ -38,10 +38,7 @@ jobs:
             STATUS_CODE=`curl -v -s -o /dev/null -w "%{http_code}"  -X POST  --data-urlencode "CommitMessage=Prod release v2" --data-urlencode "Definition=$DEFINITION"  --data-urlencode "Status=published" -u ${{ secrets.PROD_ACCOUNT_SID }}:${{ secrets.PROD_AUTH_KEY }}  https://studio.twilio.com/v2/Flows/${{ secrets.PROD_FLOW_SID }}`
             echo $STATUS_CODE
       
-      - name: If Condition
-        if: $STATUS_CODE == '200'
-        run: |
-          echo 'success'
+     
         
           
       
