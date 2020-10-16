@@ -40,5 +40,8 @@ jobs:
       
       - name: If Condition
         if: $STATUS_CODE == '200'
-          echo 'success'  
+        run: |
+          echo 'success'
+        
+          
       
