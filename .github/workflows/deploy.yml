@@ -30,16 +30,20 @@ jobs:
         run: | 
             DEFINITION=$(cat ./studio.json)
             echo $DEFINITION
-            STATUS_CODE=`curl -s -o /dev/null -w "%{http_code}"  -X POST  --data-urlencode "CommitMessage=Prod release v2" --data-urlencode "Definition=$DEFINITION"  --data-urlencode "Status=published" -u ${{ secrets.PROD_ACCOUNT_SID }}:${{ secrets.PROD_AUTH_KEY }}  https://studio.twilio.com/v2/Flows/${{ secrets.PROD_FLOW_SID }}`
+            STATUS_CODE=`curl -s -o /dev/null -w "%{http_code}"  -X POST  --data-urlencode "CommitMessage=Prod release v2" --data-urlencode "Definition=$DEFINITION"  --data-urlencode "Status=published" -u ${{ secrets.PROD_ACCOUNT_SID }}:${{ secrets.PROD_AUTH_KEY }}  https://studio.twilio.com/v2/Flows/${{ secrets.PROD_FLOW_SID }}` >> $GITHUB_ENV
             echo STATUS_CODE
         
      
       - name: if Condition
         if: success()
         run: |
-          echo "success"
+          echo STATUS_CODE
           EXECUTION_STATUS=`curl -s -o -i /dev/null -w "%{http_code}"  -X POST --data-urlencode "To=+16318721739" --data-urlencode "From=+16312502963"  -u ${{ secrets.PROD_ACCOUNT_SID }}:${{ secrets.PROD_AUTH_KEY }} https://studio.twilio.com/v2/Flows/${{ secrets.PROD_FLOW_SID }}/Executions` 
           echo EXECUTION_STATUS
 
+      - name: rollback Condition
+        if: failure()
+        run: |
+          echo "rollback"
           
       
