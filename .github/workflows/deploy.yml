@@ -35,7 +35,7 @@ jobs:
         
      
       - name: if Condition
-        if: $STATUS_CODE == '200'
+        if: ${{ env.STATUS_CODE }} == '200'
         #if: success()
         run: |
           echo $STATUS_CODE
